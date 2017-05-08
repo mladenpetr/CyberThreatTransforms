@@ -22,6 +22,7 @@
 	The script works correctly on nodes that represent an IP address
 	or a domain name.
 	In case of a incorrect script call, it creates appropriate error message.
+    The script uses GeoIP API. Get it here : http://dev.maxmind.com/geoip/legacy/downloadable/
 */
 
 import com.maxmind.geoip.*
@@ -29,7 +30,7 @@ import com.maxmind.geoip.*
 public static void main (String[] args){
 
 	LookupService cl = new LookupService("E:\\FER\\GeoIP\\GeoLiteCity.dat",
-		LookupService.GEOIP_MEMORY_CACHE );
+		LookupService.GEOIP_MEMORY_CACHE ); // replace the string in this command with path to your GeoLiteCity database!
 	def location=cl.getLocation(node.getPlainText())
 	if (location==null) {
 		ui.errorMessage('The node text is not an IP address nor a domain name!')

@@ -29,12 +29,11 @@ import com.maxmind.geoip.*
 
 public static void main (String[] args){
 
-	LookupService cl = new LookupService("E:\\FER\\GeoIP\\GeoLiteCity.dat",
+	LookupService ls = new LookupService("E:\\FER\\GeoIP\\GeoLiteCity.dat",
 		LookupService.GEOIP_MEMORY_CACHE ); // replace the string in this command with path to your GeoLiteCity database!
-	def location=cl.getLocation(node.getPlainText())
+	def location=ls.getLocation(node.getPlainText())
 	if (location==null) {
 		ui.errorMessage('The node text is not an IP address nor a domain name!')
-
 	}
 	else {
 		if (location.city==null){

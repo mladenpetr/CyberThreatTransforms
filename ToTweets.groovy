@@ -49,7 +49,7 @@ static void main(String[] args) {
 		for (Status status:timeline){
 			def child=node.createChild()
 			child.setText(status.getText())
-			child.link.text='https://twitter.com/'+node.getPlainText()+"/status/"+status.getId()
+			child.link.text='https://twitter.com/@'+username+"/status/"+status.getId()
 		}
 	}
 

@@ -17,7 +17,7 @@ Freeplane API provides access to change the mind map. Most notable and used vari
   -ui -> interface object that provides writing error/informational messages and more to the user.
   
 The scripts are easily called within Freeplane. Simply choose the node you want to run a groovy script on, right click on it, choose "scripts" and then click on the desired script to execute it.
-Every scripts uses node name as a parameter and does a transformation on it.
+Every script uses node name as a parameter and does a transformation on it.
 Although the user is free to use any script on desired node, if node text is not compatible with the called script, an appropriate message will be displayed.
 Certain scripts, like ones that use twitter API, will require an API key in order to work.
 

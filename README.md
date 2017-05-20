@@ -9,6 +9,7 @@ This software automatically comes with groovy support so no additional downloads
 The scripts need to be saved in the specific folder called "scripts" that can be accessed by choosing tools->open user directory option within Freeplane.
 After locating the folder, place any script you want to run inside it. Note that every script needs to have .groovy extension in order to run properly (other languages require additional setup).
 After creating new script, you need to restart Freeplane if it is already running in order to use the script. Modifying existing scripts does not require a restart.
+
 Freeplane API provides access to change the mind map. Most notable and used variables from this are:
   -node -> an object that contains the node the script is called upon
   -ui -> interface object that provides writing error/informational messages and more to the user.

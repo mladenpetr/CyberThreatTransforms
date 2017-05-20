@@ -28,7 +28,7 @@ import twitter4j.conf.ConfigurationBuilder
 
 static main(args) {
 	ConfigurationBuilder cb = new ConfigurationBuilder()
-	cb.setDebugEnabled(true).setOAuthConsumerKey("RnFptlx5iCKTbdCcE4g3WPain").setOAuthConsumerSecret("1NalGEE44WoyxjXbdV6b9MYEv54kiKDfwtrJulT8Ifh0ic0mUX").setOAuthAccessToken("861533691297882113-0uZ3Fm6e1hbbZSyCQQ71lbuuNTIp0LS").setOAuthAccessTokenSecret("qqn44G4eb33u8m7JVBoNozc32HUPjeB14VHaWN2XHSdqK")
+	cb.setDebugEnabled(true).setOAuthConsumerKey("CONSUMER_KEY").setOAuthConsumerSecret("CONSUMER_SECRET").setOAuthAccessToken("ACCESS_TOKEN").setOAuthAccessTokenSecret("ACCESS_TOKEN_SECRET")
 	TwitterFactory tf = new TwitterFactory(cb.build())
 	Twitter twitter = tf.getInstance()
 	def username

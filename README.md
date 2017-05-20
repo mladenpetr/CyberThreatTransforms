@@ -11,7 +11,9 @@ After locating the folder, place any script you want to run inside it. Note that
 After creating new script, you need to restart Freeplane if it is already running in order to use the script. Modifying existing scripts does not require a restart.
 
 Freeplane API provides access to change the mind map. Most notable and used variables from this are:
+
   -node -> an object that contains the node the script is called upon
+  
   -ui -> interface object that provides writing error/informational messages and more to the user.
   
 The scripts are easily called within Freeplane. Simply choose the node you want to run a groovy script on, right click on it, choose "scripts" and then click on the desired script to execute it.

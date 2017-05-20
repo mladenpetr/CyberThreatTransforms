@@ -1,0 +1,3 @@
+These scripts use Twitter API.
+To get twitter API key, you need to register your application at https://dev.twitter.com/.
+After that just replace the strings you get with appropriate ones in every script.

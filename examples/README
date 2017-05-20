@@ -1,0 +1,4 @@
+This folder contains basic mind map examples that used scripts to form itself.
+The scripts are already ran on some nodes, but feel free to experiment on same nodes as the results will append as child nodes.
+Remember that not every script will run with every node. There are restrictions for every script parameters and if called incorrectly, 
+the script will notify the user about the invalid script execution.

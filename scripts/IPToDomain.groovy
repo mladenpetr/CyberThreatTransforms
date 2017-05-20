@@ -27,15 +27,16 @@
 
 public static void main (String[] args){
 
-	InetAddress[] domains=java.net.InetAddress.getAllByName(node.getPlainText())
-    if (domains==null){
-        ui.errorMessage('The node text is not an IP address!')
+	try {
+       InetAddress[] domains=java.net.InetAddress.getAllByName(node.getPlainText())
+       for (InetAddress domain:domains){
+           def newNode=node.createChild()
+           newNode.setText(domain.getHostName())
+        }
     }
-    else {
-	   for(InetAddress domain:domains){
-	       def newNode=node.createChild()
-	       newNode.setText(domain.getHostName())
-	   }
+    catch (Exception e){
+        ui.errorMessage('The node text is not an IP address!')
+        return
     }
 }
 

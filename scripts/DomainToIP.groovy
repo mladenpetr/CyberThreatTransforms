@@ -27,15 +27,12 @@
 
 public static void main (String[] args){
 
-    try {
-	   InetAddress[] domains=java.net.InetAddress.getAllByName(node.getPlainText())
-	   for (InetAddress domain:domains){
-	       def newNode=node.createChild()
-	       newNode.setText(domain.getHostAddress())
-        }
-    }
-    catch (Exception e){
-        ui.errorMessage('The node text is not a domain name!')
-        return
-    }
+	try {
+		java.net.InetAddress.getAllByName(node.getPlainText()).each{
+			node.createChild().setText(it.hostAddress)
+		}
+	}
+	catch (Exception e) {
+        	ui.errorMessage('The node text is not a domain name! (exception ' + e.getMessage() + ')')
+	}
 }

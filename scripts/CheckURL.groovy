@@ -32,22 +32,31 @@ import me.vighnesh.api.virustotal.dao.URLScan
 import me.vighnesh.api.virustotal.dao.URLScanReport
 
 static main(args) throws MalformedURLException {
-    def report
-    def url
-    try{
-        if (node.getPlainText().contains("http://") || node.getPlainText().contains("https://")){
-            node.setText(node.getPlainText().replace("http://",""))
-        }
-        url=new URL("http://"+node.getPlainText())
-        URLConnection conn = url.openConnection()   //These next two lines test the connection of the provided url. If its not valid, the exception will be thrown.
-        conn.connect()
-        VirusTotalAPI vt=VirusTotalAPI.configure("API_KEY")
-        report=vt.getURLReport(url)
-    }
-    catch(UnknownHostException e) {
-        ui.errorMessage('The node text is not a valid URL')
-        return
-    }
-    child=node.createChild('Report:'+report.getPositives()+" found out of "+report.getTotal())
-    child.link.text="https://www.virustotal.com/en/url/"+report.getScanId().split("-")[0]+"/analysis"
+
+	def VIRUS_TOTAL_API_KEY = "not configured"
+
+	if (VIRUS_TOTAL_API_KEY == "not configured") {
+		ui.errorMessage("You have to provide VirusTotal key in order to use this script!")
+		return
+	}
+
+	def report
+	def url
+	try{
+		if (node.getPlainText().contains("http://") || node.getPlainText().contains("https://")){
+			node.setText(node.getPlainText().replace("http://",""))
+		}
+		url=new URL("http://"+node.getPlainText())
+		URLConnection conn = url.openConnection()   //These next two lines test the connection of the provided url. If its not valid, the exception will be thrown.
+		conn.connect()
+		VirusTotalAPI vt=VirusTotalAPI.configure(VIRUS_TOTAL_API_KEY)
+		report=vt.getURLReport(url)
+	}
+	catch(UnknownHostException e) {
+		ui.errorMessage(e.getMessage())
+		return
+	}
+
+	child=node.createChild('Report:'+report.getPositives()+" found out of "+report.getTotal())
+	child.link.text="https://www.virustotal.com/en/url/"+report.getScanId().split("-")[0]+"/analysis"
 }

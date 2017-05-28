@@ -25,38 +25,31 @@
     You can get public VirusTotal API for free at https://www.virustotal.com/en/documentation/public-api/
 */
 
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+
 import java.net.MalformedURLException
 import java.net.URL
 import me.vighnesh.api.virustotal.VirusTotalAPI
-import me.vighnesh.api.virustotal.dao.URLScan
-import me.vighnesh.api.virustotal.dao.URLScanReport
 
-static main(args) throws MalformedURLException {
+def VIRUS_TOTAL_API_KEY = "not configured"
 
-	def VIRUS_TOTAL_API_KEY = "not configured"
+if (VIRUS_TOTAL_API_KEY == "not configured") {
+	ui.errorMessage("You have to provide VirusTotal key in order to use this script!")
+	return
+}
 
-	if (VIRUS_TOTAL_API_KEY == "not configured") {
-		ui.errorMessage("You have to provide VirusTotal key in order to use this script!")
-		return
-	}
+try {
+	report = VirusTotalAPI.configure(VIRUS_TOTAL_API_KEY).getURLReport(node.getPlainText())
+}
+catch(UnknownHostException e) {
+	ui.errorMessage(e.getMessage())
+	return
+}
 
-	def report
-	def url
-	try{
-		if (node.getPlainText().contains("http://") || node.getPlainText().contains("https://")){
-			node.setText(node.getPlainText().replace("http://",""))
-		}
-		url=new URL("http://"+node.getPlainText())
-		URLConnection conn = url.openConnection()   //These next two lines test the connection of the provided url. If its not valid, the exception will be thrown.
-		conn.connect()
-		VirusTotalAPI vt=VirusTotalAPI.configure(VIRUS_TOTAL_API_KEY)
-		report=vt.getURLReport(url)
-	}
-	catch(UnknownHostException e) {
-		ui.errorMessage(e.getMessage())
-		return
-	}
-
-	child=node.createChild('Report:'+report.getPositives()+" found out of "+report.getTotal())
-	child.link.text="https://www.virustotal.com/en/url/"+report.getScanId().split("-")[0]+"/analysis"
+virusTotalNode = node.createChild('VirusTotal Scan')
+if (report.getPositives() > 0) {
+	child = virusTotalNode.createChild('Total ' + report.getPositives() + ' positive identifications')
+	child.link.text = "https://www.virustotal.com/en/url/" + report.getScanId().split("-")[0] + "/analysis"
+} else {
+	child = virusTotalNode.createChild('Non malicious')
 }

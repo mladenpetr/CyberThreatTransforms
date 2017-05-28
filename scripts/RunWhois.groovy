@@ -22,13 +22,13 @@
     The script works correctly on nodes that represent anything Whois can answer.
 */
 
-public static void main (String[] args){
-
-	try {
-		cmd = "whois " + node.getPlainText()
-		node.createChild().setText(cmd.execute().text)
-	}
-	catch (Exception e) {
-        	ui.errorMessage(e.getMessage())
-	}
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+try {
+	whoisNode = node.createChild()
+	whoisNode.setText("Whois Output")
+	cmd = "whois " + node.getPlainText()
+	whoisNode.createChild().setText(cmd.execute().text)
+}
+catch (Exception e) {
+       	ui.errorMessage(e.getMessage())
 }

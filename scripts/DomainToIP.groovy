@@ -25,14 +25,22 @@
     v1.0 without template method
 */
 
-public static void main (String[] args){
+/*
+ * TODO
+ *  - Allow resolving of URLs (e.g. http://domain/localpart)
+ */
 
-	try {
-		java.net.InetAddress.getAllByName(node.getPlainText()).each{
-			node.createChild().setText(it.hostAddress)
-		}
-	}
-	catch (Exception e) {
-        	ui.errorMessage('The node text is not a domain name! (exception ' + e.getMessage() + ')')
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+ipnode = node.createChild()
+ipnode.setText("IP address")
+try {
+	c.statusInfo = 'Querying DNS servers'
+	java.net.InetAddress.getAllByName(node.getPlainText()).each{
+		ipnode.createChild().setText(it.hostAddress)
 	}
 }
+catch (Exception e) {
+	ipnode.createChild().setText("Error resolving domain name")
+       	ui.errorMessage(e.getMessage())
+}
+c.statusInfo = ''

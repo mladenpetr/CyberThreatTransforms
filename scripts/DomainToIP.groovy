@@ -25,20 +25,22 @@
     v1.0 without template method
 */
 
+/*
+ * TODO
+ *  - Allow resolving of URLs (e.g. http://domain/localpart)
+ */
+
 // @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+ipnode = node.createChild()
+ipnode.setText("IP address")
 try {
-	domainNode = node.createChild()
-	domainNode.setText("Domains")
+	c.statusInfo = 'Querying DNS servers'
 	java.net.InetAddress.getAllByName(node.getPlainText()).each{
-		if (node.getPlainText() != it.hostName) {
-			// The request was successful
-			domainNode.createChild().setText(it.hostName)
-		} else {
-			// Request didn't return anything
-			domainNode.createChild().setText("Reverse name NOT FOUND")
-		}
+		ipnode.createChild().setText(it.hostAddress)
 	}
 }
 catch (Exception e) {
-       	ui.errorMessage('The node text is not a domain name! (exception ' + e.getMessage() + ')')
+	ipnode.createChild().setText("Error resolving domain name")
+       	ui.errorMessage(e.getMessage())
 }
+c.statusInfo = ''

@@ -1,6 +1,6 @@
 /*
     FreeTransform, scripts that perform simple Maltego transformations.
-    Copyright (C) 2017  Mladen Petr
+    Copyright (C) 2017  Stjepan Groš
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,23 +19,16 @@
 /*
     The script is called upon an arbitrary node.
     Parameter is node text.
-    The script works correctly on nodes that represent an IP address.
-    In case of a incorrect script call, it creates appropriate error message.
-    The script uses java.net.InetAddress class to get relevant information.
-    v1.0 without template method
+    The script works correctly on nodes that represent anything Whois can answer.
 */
 
-public static void main (String[] args){
-
-    try {
-	   InetAddress[] domains=java.net.InetAddress.getAllByName(node.getPlainText())
-	   for (InetAddress domain:domains){
-	       def newNode=node.createChild()
-	       newNode.setText(domain.getHostAddress())
-        }
-    }
-    catch (Exception e){
-        ui.errorMessage('The node text is not a domain name!')
-        return
-    }
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+try {
+	whoisNode = node.createChild()
+	whoisNode.setText("Whois Output")
+	cmd = "whois " + node.getPlainText()
+	whoisNode.createChild().setText(cmd.execute().text)
+}
+catch (Exception e) {
+       	ui.errorMessage(e.getMessage())
 }

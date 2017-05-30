@@ -7,6 +7,7 @@ in order to make mind mapping process easier.
 To try these scripts, you will need Freeplane that can be downloaded for free at https://www.freeplane.org/wiki/index.php/Main_Page.
 This software automatically comes with groovy support so no additional downloads are required.
 The scripts need to be saved in the specific folder called "scripts" that can be accessed by choosing tools->open user directory option within Freeplane.
+
 Freeplane has network access disabled by default. To enable it, go to Tools-preferences and check the permit network operations options.
 After locating the folder, place any script you want to run inside it. Note that every script needs to have .groovy extension in order to run properly (other languages require additional setup).
 After creating new script, you need to restart Freeplane if it is already running in order to use the script. Modifying existing scripts does not require a restart.

@@ -1,4 +1,4 @@
-# FreeTransform
+# CyberThreatTransforms
 
 This is a bachelor project at Faculty of electrical engineering and computing (Zagreb).
 The goal of this project is to implement Maltego transformations into Freeplane software 

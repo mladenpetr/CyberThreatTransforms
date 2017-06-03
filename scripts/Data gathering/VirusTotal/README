@@ -1,0 +1,3 @@
+These scripts use VirusTotal API that is publicly available at https://www.virustotal.com/hr/documentation/public-api/.
+They also use Java library that is available at https://vighnesh.me/virustotal/.
+To make scripts work, the jar file needs to be in the classpath folder (lib).

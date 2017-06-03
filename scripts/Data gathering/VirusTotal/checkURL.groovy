@@ -25,6 +25,8 @@
     You can get public VirusTotal API for free at https://www.virustotal.com/en/documentation/public-api/
 */
 
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform/VirusTotal[addons.installer.title]"})
+
 import java.net.MalformedURLException
 import java.net.URL
 import me.vighnesh.api.virustotal.VirusTotalAPI
@@ -32,6 +34,13 @@ import me.vighnesh.api.virustotal.dao.URLScan
 import me.vighnesh.api.virustotal.dao.URLScanReport
 
 static main(args) throws MalformedURLException {
+    def VIRUS_TOTAL_API_KEY="not_configured"
+
+    if (VIRUS_TOTAL_API_KEY=="not_configured"){
+        ui.errorMessage('You need to provide VirusTotal API key in order to use this script!')
+        return
+    }
+
     def report
     def url
     try{
@@ -41,7 +50,7 @@ static main(args) throws MalformedURLException {
         url=new URL("http://"+node.getPlainText())
         URLConnection conn = url.openConnection()   //These next two lines test the connection of the provided url. If its not valid, the exception will be thrown.
         conn.connect()
-        VirusTotalAPI vt=VirusTotalAPI.configure("API_KEY")
+        VirusTotalAPI vt=VirusTotalAPI.configure(VIRUS_TOTAL_API_KEY)
         report=vt.getURLReport(url)
     }
     catch(UnknownHostException e) {

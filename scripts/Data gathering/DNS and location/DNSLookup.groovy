@@ -25,17 +25,25 @@
     v1.0 without template method
 */
 
-public static void main (String[] args){
-
-    try {
-	   InetAddress[] domains=java.net.InetAddress.getAllByName(node.getPlainText())
-	   for (InetAddress domain:domains){
-	       def newNode=node.createChild()
-	       newNode.setText(domain.getHostAddress())
+// @ExecutionModes({on_single_node="node_popup_scripting/FreeTransform[addons.installer.title]"})
+try {
+    domainNode = node.createChild()
+    java.net.InetAddress.getAllByName(node.getPlainText()).each{
+        if (node.getPlainText() != it.hostName) {
+            domainNode.setText("Domains")
+            // The request was successful
+            domainNode.createChild().setText(it.hostName)
+        } else if (node.getPlainText() != it.hostAddress) {
+            domainNode.setText("IP Addresses")
+            domainNode.createChild().setText(it.hostAddress)
+        } else {
+            // Request didn't return anything
+            domainNode.createChild().setText("Reverse name NOT FOUND")
         }
     }
-    catch (Exception e){
-        ui.errorMessage('The node text is not a domain name!')
-        return
-    }
 }
+catch (Exception e) {
+        ui.errorMessage('The node text is not a domain name! (exception ' + e.getMessage() + ')')
+}
+
+
